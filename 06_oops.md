@@ -896,8 +896,6 @@ class Student {
 creation then we should go for instance block (like updating one entry in the
 database for every object creation or incrementing count value for every object
 creation)
-- Both constructor and instance blocks have their own different purposes, and
-replacing one concept with another may not always work
 - Both constructor and instance block will be executed for every object creation
 but instance block first followed by constructor
 ```java
