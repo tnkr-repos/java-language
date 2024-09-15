@@ -1,6 +1,6 @@
 - How to setup Maven?
   - Download the compressed archive
-  - Extract it and add the `bin/` directory to PATH
+  - Extract it and add the `bin/` directory containing the Maven binary to PATH
 
 - How to test Maven installation?
   - Run `mvn -v` to get the version number of installed Maven
@@ -11,13 +11,13 @@
 - Where are user-specific configurations provided to Maven?
   - Using `settings.xml` file
   - Maven looks for this file at both
-    - in the `conf/` directory of Maven's installation (global setting)
+    - in the `conf/` directory of Maven's installation (global setting), and
     - in the `.m2/` directory in user's home directory (user setting - takes
     precendence over global setting)
 
 - What are settings of Maven that can be tweaked?
   - `localRepository` - Location where local copies of plugins and dependencies
-  are stored\
+  are stored
   - `servers` - In case Maven needs to interact with Git servers, build servers,
   and remote repository servers (you can specify the credentials needed to
   connect to the servers as well)
@@ -25,6 +25,20 @@
   remote repositories (useful in enterprise where the internal network mirrors a
   public repository for security reasons)
   - `proxies` - Contain HTTP proxy information needed to connect to the internet
+```xml
+<!-- settings.xml -->
+<settings>
+  <localRepository/>
+  <interactiveMode/>
+  <offline/>
+  <pluginGroups/>
+  <servers/>
+  <mirrors/>
+  <proxies/>
+  <profiles/>
+  <activeProfiles/>
+</settings>
+```
 
 - How to setup a proxy?
   - To allow Maven to install dependencies from the internet without being
@@ -54,4 +68,3 @@
 ```
   - Run `mvn -ep <proxypassword>` to get the encrypted version of the password
   and replace the clear text password in `settings.xml` with this
-
