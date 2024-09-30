@@ -17,9 +17,9 @@
 - It can be method name, variable name, class name or label name
 ```java
 class Test {
-    public static void main(String[] args) {
-        int x = 10;
-    }
+	public static void main(String[] args) {
+		int x = 10;
+	}
 }
 // 5 identifiers - Test, main, String, args, x
 ```
@@ -146,4 +146,103 @@ Wrapper Class - Integer
 |-- |-- char (16 bits) - Unicode representation; Wrapper class Character
 |-- |-- boolean - Virtual machine dependent size; False values of different data
 types are not interpreted as false boolean value (will get CE incompatible type)
+```
+
+# MAIN METHOD
+
+- Whether class contains `main()` method or not, and whether `main()` method is
+declared according to requirement are not -> these things won't be checked by
+compiler. At runtime JVM is responsible to check these things. If JVM is unable
+to find `main()` method then we will get runtime exception
+- At runtime JVM searches for `main()` method with the following prototype
+	- `public` - So that JVM can call from anywhere
+	- `static` - Without an object JVM needs to call this method
+	- `void` - `main()` method won't return anything to JVM
+	- `main` - This is the name which is configured in JVM
+	- `String[] args` - command line arguments
+```java
+public static void main(String[] args) {}
+```
+- The above syntax is very strict and if we perform any change then we will get
+runtime exception. However the following changes are acceptables:
+	- Instead of `public static` we can take `static public` - the order of
+	modifiers is not important
+	- We can declare `String` array in any acceptable form - `String[] durga`
+	- We can replace `String` array with var-arg parameter - `String... args`
+	- We can declare `main()` method with the modifiers - `final`, `synchronized`,
+	`strictfp`
+
+- Overloading of `main()` method is possible but JVM will always call `String[]`
+argument `main()` method only. The other overloaded methods we have to call
+explicitly like normal method calls
+```java
+class Test {
+	public static void main(String[] args) {
+		System.out.println("String[]");
+	}
+	public static void main(int[] args) {
+		System.out.println("int[]");
+	}
+}
+// OUTPUT - String[]
+```
+- Inheritance concept applicable for `main()` method. Hence while executing
+child class if it does not contain `main()` method, then parent class `main()`
+method will be executed
+```java
+class P {
+	public static void main(String[] args) {
+		System.out.println("Parent main");
+	}
+}
+class C extends P {}
+/*
+java P.java -> P.class and C.class
+java P -> Parent main
+java C -> Parent main
+*/
+```
+- It seems overriding concept is applicable for `main()` method but it is not
+overriding - it is method hiding
+```java
+class P {
+	public static void main(String[] args) {
+		System.out.println("Parent main");
+	}
+}
+class C extends P {
+	public static void main(String[] args) {
+		System.out.println("Child main");
+	}
+}
+/*
+java P.java -> P.class and C.class
+java P -> Parent main
+java C -> Child main (this is method hiding not overriding)
+*/
+```
+
+- Execution flow:
+Check for main method
+	- If it is not available - Error - Main method not found
+	- If it is available
+		- Identification of static member
+		- Execution of static variable assignments and static blocks
+		- Execution of main
+```java
+class Test {
+	static {
+		System.out.println("Static block");
+	}
+	public static void main(String[] args) {
+		System.out.println("Main method");
+	}
+}
+/*
+javac Test.java
+java Test
+
+// OUTPUT
+Static block
+main method
 ```
