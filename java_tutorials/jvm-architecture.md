@@ -1,36 +1,36 @@
 # INDEX
 
 - Virtual Machine
-    - Types of Virtual Machines
-        - Hardware Based
-        - Application Based
+	- Types of Virtual Machines
+		- Hardware Based
+		- Application Based
 
 - Basic Architecture of JVM
 
 - Class Loader Subsystem
-    - Loading
-    - Linking
-    - Initialisation
-    - Types of Class Loaders
-        - Bootstrap
-        - Extension
-        - Application
-    - How class loader works
-    - Need for customised class loader
-    - Pseudo code for customised class loader
+	- Loading
+	- Linking
+	- Initialisation
+	- Types of Class Loaders
+		- Bootstrap
+		- Extension
+		- Application
+	- How class loader works
+	- Need for customised class loader
+	- Pseudo code for customised class loader
 
 - Various Memory Areas of JVM
-    - Method
-    - Heap
-        - Program to display heap memory statistics
-        - How to set maximum and minimum heap size
-    - Stack
-    - PC Registers
-    - Native Method stacks
+	- Method
+	- Heap
+		- Program to display heap memory statistics
+		- How to set maximum and minimum heap size
+	- Stack
+	- PC Registers
+	- Native Method stacks
 
 - Execution Engine
-    - Interpreter
-    - JIT Compilers
+	- Interpreter
+	- JIT Compilers
 
 - Java Native Interface (JNI)
 
@@ -40,55 +40,64 @@
 
 # VIRTUAL MACHINE
 
-- It is a software simulation of a machine which can perform operations like a
-physical machine
-- Types:
-    - Hardware Based or System Based
-    - Application Based or Process Based
+- What is a Virtual Machine?
+	- A software simulation of a machine
+
+- What are the types of Virtual Machines?
+	1. Hardware-based or System-based
+	2. Application-based or Process-based
 
 ## HARDWARE OR SYSTEM BASED VIRTUAL MACHINE
 
-- It provides several logical system on the same computer with strong isolation
-from each other
-- Advantage is hardware resource sharing and improves utilisation of hardware
-resources
-- For eg. KVM (Kernel-based Virtual Machine for Linux system), VMWare, Xen
+- What is Hardware-based virtual machine?
+	- Several logical system on the same computer with strong isolation from
+	each other
+
+- What is the advantage of Hardware-based virtual machine?
+	- Improved hardware utilisation
+
+- What are examples of Hardware-based virtual machine?
+	- KVM (Kernel-based Virtual Machine for Linux), VMWare
 
 ## APPLICATION OR PROCESS BASED VIRTUAL MACHINE
 
-- Act as runtime engines to run a particular programming language applications
-- For eg. JVM (Java Virtual Machine - acts as runtime engine to run Java based
-applications), PVM (Perl Virtual Machine), CLR (Common Language Runtime acts as
-runtime engine to run .NET Based applications)
+- What is Application-based virtual machine?
+	- Act as runtime engines to run applications written in a particular
+	programming language
+
+- What are examples of Application-based virtual machines?
+	- JVM (Java Virtual Machine for Java Applications), CLR (Common Language
+	Runtime for .NET Applications)
 
 # JVM
 
-- JVM is a part of JRE
-- It is responsible to load and run Java class files
+- What is JVM?
+	- An Application-based Virtual Machine
+	- A part of JRE that is resposible for loading and running Java class files
 
 # BASIC ARCHITECTURE DIAGRAM OF JVM
 
-- ![JVM Architecture Diagram](image.png)
+- ![JVM Architecture Diagram](../images/image.png)
 
 # CLASS LOADER SUBSYSTEM
 
 - Resposible for 3 activities:
-    - Loading
-    - Linking
-    - Initialisation
+	- Loading
+	- Linking
+	- Initialisation
 
 ## LOADING
 
 - Reading class files and store corresponding binary data in method area
 - For each .class file the JVM will store the corresponding information in
 memory area:
-    - Fully qualified name of class
-    - Fully qualifief name of immediate parent class
-    - Methods information
-    - Variable information
-    - Constructor information
-    - Modifiers information
-    - etc...
+	- Fully qualified name of class
+	- Fully qualifief name of immediate parent class
+	- Methods information
+	- Variable information
+	- Constructor information
+	- Modifiers information
+	- etc...
 
 - After loading .class file immediately JVM creates an object for that loaded
 class in heap memory of type `java.lang.Class`
@@ -111,9 +120,9 @@ object to represent Student class information inside Heap Area (JVM)
 ## LINKING
 
 - Consists of 3 activities:
-    - Verify
-    - Prepare
-    - Resolve
+	- Verify
+	- Prepare
+	- Resolve
 
 ### VERIFY
 
@@ -151,9 +160,9 @@ get runtime exception saying `java.lang.LinkageError`
 ## TYPES OF CLASS LOADERS
 
 - 3 types:
-    - Boostrap or Premordial
-    - Extension
-    - Application or System
+	- Boostrap or Premordial
+	- Extension
+	- Application or System
 
 ### BOOTSTRAP CLASS LOADER
 
@@ -223,18 +232,18 @@ available to our program
 - By extending `java.lang.ClassLoader` class
 ```java
 public class CustClassLoader extends ClassLoader {
-    public Class loadClass(String cname) throws ClassNotFoundException {
-        // check for updates and load updated .class file
-        // return corresponding Class
-    }
+	public Class loadClass(String cname) throws ClassNotFoundException {
+		// check for updates and load updated .class file
+		// return corresponding Class
+	}
 }
 class Client {
-    public static void main(String[] args) {
-        Dog d1 = new Dog();     // loaded by default class loader
-        CustClassLoader cl = new CustClassLoader();
-        cl.loadClass("Dog");    // loaded by customised class loader
-        cl.loadClass("Dog");    // loaded by customised class loader
-    }
+	public static void main(String[] args) {
+		Dog d1 = new Dog();     // loaded by default class loader
+		CustClassLoader cl = new CustClassLoader();
+		cl.loadClass("Dog");    // loaded by customised class loader
+		cl.loadClass("Dog");    // loaded by customised class loader
+	}
 }
 ```
 
@@ -242,21 +251,21 @@ class Client {
 customised class loaders
 
 - What is the need of `java.lang.ClassLoader` class?
-    - Used to define our own customised class loaders
-    - Every class loader in Java should be child class of this class either
-    directly or indirectly. Hence this class acts as base class for all class
-    loaders
+	- Used to define our own customised class loaders
+	- Every class loader in Java should be child class of this class either
+	directly or indirectly. Hence this class acts as base class for all class
+	loaders
 
 # VARIOUS MEMORY AREAS OF JVM
 
 - Whenever JVM loads and runs a Java program it needs memory to store several
 things like bytecode, objects, variables, etc. 
 - Total JVM memory is organised into 5 categories:
-    - Method Area
-    - Heap Area
-    - Stack Memory
-    - PC Registers
-    - Native Methods Stacks
+	- Method Area
+	- Heap Area
+	- Stack Memory
+	- PC Registers
+	- Native Methods Stacks
 
 ## METHOD AREA
 
@@ -287,7 +296,7 @@ not thread safe
 ```java
 r.maxMemory();  // returns the number of bytes of max memory allocated to heap
 r.totalMemory();  // returns the number of bytes of total memory allocated to
-                    // heap (initial memory)
+					// heap (initial memory)
 r.freeMemory(); // returns number of bytes of free memory present in the heap
 ```
 
@@ -318,9 +327,9 @@ and not available to the remaining threads. Hence this data is thread safe
 ### STACK FRAME STRUCTURE
 
 - Each stackframe contains 3 parts:
-    - Load variable array
-    - Operand stack
-    - Frame data
+	- Load variable array
+	- Operand stack
+	- Frame data
 
 #### LOCAL VARIABLE ARRAY
 
@@ -375,12 +384,12 @@ point to the memory occupied by the Student object
 ![Memory Areas](image-7.png)
 ```java
 class Test {
-    Student s1 = new Student();
-    static Student s2 = new Student();
-    public static void main(String[] args) {
-        Test t = new Test();
-        Student s3 = new Student();
-    }
+	Student s1 = new Student();
+	static Student s2 = new Student();
+	public static void main(String[] args) {
+		Test t = new Test();
+		Student s3 = new Student();
+	}
 }
 ```
 
@@ -388,8 +397,8 @@ class Test {
 
 - Responsible to execute Java class files
 - Contains two components
-    - Interpreter
-    - JIT Compiler
+	- Interpreter
+	- JIT Compiler
 
 ## INTERPRETER
 
@@ -431,34 +440,34 @@ for every method
 # CLASS FILE STRUCTURE
 
 - Different parts of class file:
-    - magic_number - The first 4 bytes of classfile is magic number. It is a
-    predefined value used by JVM to identify if .class file is generated by a 
-    valid compiler or not. The value should be 0XCAFEBABE. Whenever we are
-    executing a Java class, if JVM is unable to find valid magic number, then we
-    will get runtime exception saying `java.lang.ClassFormatError`
-    - major_version
-    - minor_version - Represents .class file version. JVM will use these
-    versions to identify which version of compiler generates the current .class
-    file - `javac 1.6v -> java 1.7v` - M.m (Major version.Minor version). Lower
-    version compiler generated .class file can be run by higher version JVM, but inverse is not possible. If we are trying to run we will get Runtime
-    Exception saying `UnsupportedClassVersionError` (1.5v - 49.0; 1.6v - 50.0;
-    1.7v - 51.0)
-    - constant_pool_count - Represents number of constants present in constant
-    pool
-    - constant_pool[] - Represents information about constants present in
-    constant pool
-    - access_flags - Provides information about modifiers which are declared to
-    the class
-    - this_class - Represents fully qualified name of the class
-    - super_class - Represent fully qualified name of the immediate super class
-    of current class
-    - interface_count - Returns number of interface implemented by current class
-    - interface[] - Returns interface information implemented by current class
-    - fields_count - Represents (static variables) in current class
-    - fields[] - Represents static variable information in current class
-    - methods_count - Represents number of methods in current class
-    - methods[] - Information about methods in current class
-    - attributes_count - Number of instance variables in current class
-    - attributes[] - Information about instance variables in current class
+	- magic_number - The first 4 bytes of classfile is magic number. It is a
+	predefined value used by JVM to identify if .class file is generated by a 
+	valid compiler or not. The value should be 0XCAFEBABE. Whenever we are
+	executing a Java class, if JVM is unable to find valid magic number, then we
+	will get runtime exception saying `java.lang.ClassFormatError`
+	- major_version
+	- minor_version - Represents .class file version. JVM will use these
+	versions to identify which version of compiler generates the current .class
+	file - `javac 1.6v -> java 1.7v` - M.m (Major version.Minor version). Lower
+	version compiler generated .class file can be run by higher version JVM, but inverse is not possible. If we are trying to run we will get Runtime
+	Exception saying `UnsupportedClassVersionError` (1.5v - 49.0; 1.6v - 50.0;
+	1.7v - 51.0)
+	- constant_pool_count - Represents number of constants present in constant
+	pool
+	- constant_pool[] - Represents information about constants present in
+	constant pool
+	- access_flags - Provides information about modifiers which are declared to
+	the class
+	- this_class - Represents fully qualified name of the class
+	- super_class - Represent fully qualified name of the immediate super class
+	of current class
+	- interface_count - Returns number of interface implemented by current class
+	- interface[] - Returns interface information implemented by current class
+	- fields_count - Represents (static variables) in current class
+	- fields[] - Represents static variable information in current class
+	- methods_count - Represents number of methods in current class
+	- methods[] - Information about methods in current class
+	- attributes_count - Number of instance variables in current class
+	- attributes[] - Information about instance variables in current class
 
 - `javap -verbose Test.class`
